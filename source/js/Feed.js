@@ -26,16 +26,13 @@ var CraterFeed = React.createClass({
   },
   componentDidMount: function() {
     if(this.props.feed){
-      this.fetchData(this.props.feed.feedType);
-    }else{
-      this.fetchData('Trending');
+      this.fetchData();
     }
   },
-  fetchData: function(feedType) {
-  	console.log(feedType);
+  fetchData: function(callback) {
+  	console.log('Feed Type = '+this.props.feed.feedType);
     var URL = '';
-    switch(feedType) {
-
+    switch(this.props.feed.feedType) {
       case 'Trending':
           URL = 'https://www.kimonolabs.com/api/4npxz2z8';
           break;
@@ -45,8 +42,6 @@ var CraterFeed = React.createClass({
       case 'Best':
           URL = 'https://www.kimonolabs.com/api/9vg11a66';
           break;
-      default:
-          URL = 'https://www.kimonolabs.com/api/4npxz2z8';
     }
 
     fetch(URL+'?apikey=kJVkitxBOpZeSt9wwkkc1u4pjDj6FID8')
@@ -56,6 +51,11 @@ var CraterFeed = React.createClass({
           dataSource: this.state.dataSource.cloneWithRows(responseData.results.Posts),
           loaded: true,
         });
+      }).then(function(){
+        var getType = {};
+        if(callback && getType.toString.call(callback) === '[object Function]'){
+          callback();
+        }
       })
       .done();
   },
@@ -68,6 +68,7 @@ var CraterFeed = React.createClass({
         dataSource={this.state.dataSource}
         renderRow={this.renderMovie}
         refreshDescription="Refreshing..."
+        loadData={this.fetchData}
         style={styles.listView} />
     );
   },
