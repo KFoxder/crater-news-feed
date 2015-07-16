@@ -2,6 +2,8 @@
 
 var React = require('react-native');
 
+var RefreshableListView = require('react-native-refreshable-listview');
+
 var {
   ListView,
   StyleSheet,
@@ -62,9 +64,10 @@ var CraterFeed = React.createClass({
       return this.renderLoadingView();
     }
     return (
-      <ListView
+      <RefreshableListView
         dataSource={this.state.dataSource}
         renderRow={this.renderMovie}
+        refreshDescription="Refreshing..."
         style={styles.listView} />
     );
   },
