@@ -21,7 +21,7 @@ var FeedItem = React.createClass({
 		var element = this.props.elem;
 		nav.push({
 			navigationBar: <NavigationBar 
-          						title="crater.io"
+          						title={element.title.text}
           						titleColor="#FFFFFF" 
           						backgroundColor="#CBBCDF" />,
            component: ArticleView,

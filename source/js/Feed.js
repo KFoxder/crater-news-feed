@@ -66,7 +66,7 @@ var CraterFeed = React.createClass({
     return (
       <RefreshableListView
         dataSource={this.state.dataSource}
-        renderRow={this.renderMovie}
+        renderRow={this.renderFeedItem}
         refreshDescription="Refreshing..."
         loadData={this.fetchData}
         style={styles.listView} />
@@ -81,7 +81,7 @@ var CraterFeed = React.createClass({
       </View>
     );
   },
-  renderMovie: function(element) {
+  renderFeedItem: function(element) {
     return (
      <FeedItem elem={element} nav={this.props.navigator}/>
     );
