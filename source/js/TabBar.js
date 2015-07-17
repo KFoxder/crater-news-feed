@@ -1,5 +1,4 @@
 'use strict';
-/*      <CraterFeed feed={feedType}/>*/
 var React = require('react-native');
 
 var {
@@ -16,27 +15,9 @@ var {
 } = require('react-native-icons');
 
 var CraterFeed = require('./Feed');
-var NavigationBar = require('react-native-navbar');
 
 var TabBarItemIOS = TabBarIOS.Item;
 
-
-var prevImage = 'https://crater.io/packages/telescope-theme-crater/lib/public/images/crater.png';
-/**
- * Custom `Prev` button component
- */
-class CustomPrev extends React.Component {
-  render() {
-    return (
-      <TouchableOpacity onPress={() => alert('prev') }>
-        <React.Image
-          source={{uri: prevImage}}
-          style={styles.customButton}
-        />
-      </TouchableOpacity>
-    );
-  }
-}
 
 var TabBar = React.createClass({
   getInitialState: function() {
@@ -48,38 +29,7 @@ var TabBar = React.createClass({
   },
    _renderContent: function(feedType: string) {
     return (
-    		<Navigator
-        style={styles.navigator}
-        renderScene={this.renderScene}
-        initialRoute={{
-          component: CraterFeed,
-          feed: {feedType},
-          navigationBar: <NavigationBar 
-          						title="crater.io"
-          						titleColor="#FFFFFF" 
-          						backgroundColor="#CBBCDF"
-          						customPrev={<CustomPrev/>} />
-        }}/>
-
-    );
-  },
-
- renderScene: function(route, navigator) {
-    var Component = route.component;
-    var navBar = route.navigationBar;
-
-    if (navBar) {
-      navBar = React.addons.cloneWithProps(navBar, {
-        navigator: navigator,
-        route: route
-      });
-    }
-
-    return (
-      <View style={styles.navigator}>
-        {navBar}
-        <Component feed={route.feed} url={route.url} navigator={navigator} route={route} />
-      </View>
+    		<CraterFeed navigator={this.props.navigator} feed={feedType}/>
     );
   },
 
@@ -136,18 +86,10 @@ var TabBar = React.createClass({
     );
   }
 });
-
 var styles = StyleSheet.create({
 
-	navigator : {
-		flex: 1,
-	},
-	  customButton: {
-    width: 24,
-    height: 24,
-    left: 10,
-    bottom: 5
-  },
+	tabBar : {
+	}
 });
 
 module.exports = TabBar;

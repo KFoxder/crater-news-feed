@@ -10,7 +10,7 @@ var {
   AppRegistry,
 } = React;
 
-var TabBar = require('./source/js/TabBar');
+var Nav = require('./source/js/Nav');
 
 
-AppRegistry.registerComponent('CraterFeedApp', () => TabBar);
+AppRegistry.registerComponent('CraterFeedApp', () => Nav);

@@ -27,13 +27,16 @@ var ArticleView = React.createClass({
 	      scalesPageToFit: true,
 	    };
 	},
+
 	render: function() {
+
+		var URL = this.props.route.url;
 		return (
 			<WebView
 		          ref={WEBVIEW_REF}
 		          automaticallyAdjustContentInsets={false}
 		          style={styles.webView}
-		          url={this.props.url}
+		          url={URL}
 		          javaScriptEnabledAndroid={true}
 		          onNavigationStateChange={this.onNavigationStateChange}
 		          startInLoadingState={true}

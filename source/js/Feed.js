@@ -30,9 +30,9 @@ var CraterFeed = React.createClass({
     }
   },
   fetchData: function(callback) {
-  	console.log('Feed Type = '+this.props.feed.feedType);
+  	console.log('Feed Type = '+this.props.feed);
     var URL = '';
-    switch(this.props.feed.feedType) {
+    switch(this.props.feed) {
       case 'Trending':
           URL = 'https://www.kimonolabs.com/api/4npxz2z8';
           break;
