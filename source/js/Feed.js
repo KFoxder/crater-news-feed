@@ -2,18 +2,16 @@
 
 var React = require('react-native');
 
-var RefreshableListView = require('react-native-refreshable-listview');
-
 var {
   ListView,
   StyleSheet,
   Text,
   View,
-  Image,
-  TouchableHighlight
 } = React;
 
+var RefreshableListView = require('react-native-refreshable-listview');
 var FeedItem = require('./FeedItem');
+var FeedDataService = require('./FeedDataService');
 
 var CraterFeed = React.createClass({
   getInitialState: function() {
@@ -31,33 +29,17 @@ var CraterFeed = React.createClass({
   },
   fetchData: function(callback) {
   	console.log('Feed Type = '+this.props.feed);
-    var URL = '';
-    switch(this.props.feed) {
-      case 'Trending':
-          URL = 'https://www.kimonolabs.com/api/4npxz2z8';
-          break;
-      case 'Recent':
-          URL = 'https://www.kimonolabs.com/api/2nn1qwje';
-          break;
-      case 'Best':
-          URL = 'https://www.kimonolabs.com/api/9vg11a66';
-          break;
-    }
+    var promise = FeedDataService.getFeedData(this.props.feed);
 
-    fetch(URL+'?apikey=kJVkitxBOpZeSt9wwkkc1u4pjDj6FID8')
-      .then((response) => response.json())
-      .then((responseData) => {
+    promise.then((responseData) => {
         this.setState({
           dataSource: this.state.dataSource.cloneWithRows(responseData.results.Posts),
           loaded: true,
         });
       }).then(function(){
-        var getType = {};
-        if(callback && getType.toString.call(callback) === '[object Function]'){
           callback();
-        }
-      })
-      .done();
+      });
+
   },
   render: function() {
     if (!this.state.loaded) {

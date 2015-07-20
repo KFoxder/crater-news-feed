@@ -10,6 +10,7 @@ var {
   TouchableHighlight
 } = React;
 
+var { Icon, } = require('react-native-icons');
 var NavigationBar = require('react-native-navbar');
 var ArticleView = require('./ArticleView');
 
@@ -19,9 +20,15 @@ var FeedItem = React.createClass({
 		console.log(href);
 		var nav = this.props.nav;
 		var element = this.props.elem;
+    var title = element.title.text;
+    if(title.length >30){
+      title = title.substring(0,30) + '...';
+    }else{
+      title = title.substring(0,30);
+    }
 		nav.push({
 			navigationBar: <NavigationBar 
-          						title={element.title.text}
+          						title={title}
           						titleColor="#FFFFFF" 
           						backgroundColor="#CBBCDF" />,
            component: ArticleView,
@@ -39,24 +46,30 @@ var FeedItem = React.createClass({
 				    <View style={styles.leftContainer}>
 				      <Text style={styles.title}>{element.title.text}</Text>
 				      <View style={styles.bottomContainer}>
-				        <Text style={styles.description}>
 				          <Text style={styles.upvotes}>
-				            {element.upvotes.text+'\t'}
+				            {element.upvotes.text}
 				          </Text>
 				          <Text style={styles.creator}>
 				            {element.creator.text} 
 				          </Text>
-				        </Text>
 				      </View>
 				       <View style={styles.bottomContainer}>
-				        <Text style={styles.description}>
-				          <Text style={styles.orginalSite}>
-				            {element.orginalSite.text} 
-				          </Text>
-				        </Text>
+                <Icon
+                      name='ion|ios-world-outline'
+                      size={globeDiameter}
+                      color={textColor}
+                      style={styles.globe}/>
+			          <Text style={styles.orginalSite}>
+                  {element.orginalSite.text} 
+			          </Text>
 				      </View>
 				    </View>
 				    <View style={styles.rightContainer}>
+              <Icon
+                      name='ion|ios-chatbubble-outline'
+                      size={commentDiameter}
+                      color={textColor}
+                      style={styles.commentBubble}/>
 				      <Text style={styles.comments}>{element.numComments.text}</Text>
 				    </View>
 				  </View>
@@ -66,6 +79,10 @@ var FeedItem = React.createClass({
     
 	}
 });
+
+var textColor = '#5B3B86';
+var globeDiameter = 15;
+var commentDiameter = 15;
 
 var styles = StyleSheet.create({
   container: {
@@ -86,13 +103,24 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  topContainer : {
+    flex: 4,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 5,
+  },
   bottomContainer : {
     flex: 4,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 5,
   },
   leftContainer : {
     flex: 4,
   },
   rightContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
     flex: 1,
   },
   thumbnail: {
@@ -101,43 +129,52 @@ var styles = StyleSheet.create({
   },
   title: {
     fontSize: 13,
-    fontWeight: 'bold',
+    marginTop: 5,
     marginBottom: 10,
     marginLeft: 15,
     textAlign: 'left',
   },
-  description : {
-    flex: 1,
-    fontSize: 12,
-    marginLeft: 15,
-    marginBottom: 5,
-    textAlign: 'left',
-  },
   comments: {
-    textAlign: 'right',
+    flex: 1,
+    textAlign: 'left',
     backgroundColor: 'transparent',
-    marginRight: 15,
+    marginRight: 0,
+    color: textColor, 
   },
   commentBubble: {
-    textAlign: 'right',
-    marginRight: 15,
-    width: 30, 
-    height: 30, 
-    right: 0,
-    backgroundColor: 'transparent'
+    flex: 1,
+    width: commentDiameter, 
+    height: commentDiameter, 
+    backgroundColor: 'transparent',
+    marginLeft: 15,
   },
   upvotes: {
-    fontSize: 10,
-    backgroundColor: '#F5FCFF',
+    flex: 1,  
+    textAlign: 'left',
+    fontSize: 12,
+    marginLeft: 15,
+    color: textColor,
+    textAlign: 'center',
   },
   creator: {
-    textAlign: 'right',
-    marginRight: 5,
+    flex: 9,  
+    textAlign: 'left',
+    fontSize: 12,
+    color: textColor,
+
   },
   orginalSite : {
+    flex: 9,  
+    textAlign: 'left',
+    color: textColor,
+    fontSize: 12,
+
+  },
+  globe : {
     flex: 1,
     marginLeft: 15,
-    textAlign: 'left',
-  },
+    width: globeDiameter, 
+    height: globeDiameter, 
+  }
 });
 module.exports = FeedItem;

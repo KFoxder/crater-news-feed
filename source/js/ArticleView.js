@@ -52,7 +52,7 @@ var styles = StyleSheet.create({
     backgroundColor: BGWASH,
   },
   spinner: {
-    width: 20,
+    width: 30,
     marginRight: 6,
   },
 });
