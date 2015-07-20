@@ -1,7 +1,9 @@
 /**
- * Sample React Native App
+ * Crater.io News Feed App. 
+ * Built using React-Native.
  * https://github.com/facebook/react-native
  */
+ 
 'use strict';
 
 var React = require('react-native');

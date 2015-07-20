@@ -12,9 +12,12 @@ var {
  */
 var CustomNavButton = React.createClass({
 
+  _onPress : function(){
+    
+  },
   render :function() {
     return (
-      <TouchableOpacity onPress={() => alert('prev') }>
+      <TouchableOpacity onPress={this._onPress}>
         <React.Image
           source={{uri: this.props.imageUrl}}
           style={styles.customButton}/>

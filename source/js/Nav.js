@@ -5,7 +5,6 @@ var {
   StyleSheet,
   Navigator,
   View,
-  TouchableOpacity,
 } = React;
 
 var NavigationBar = require('react-native-navbar');

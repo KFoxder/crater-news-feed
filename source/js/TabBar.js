@@ -4,10 +4,6 @@ var React = require('react-native');
 var {
   StyleSheet,
   TabBarIOS,
-  NavigatorIOS,
-  Navigator,
-  View,
-    TouchableOpacity,
 } = React;
 
 var { 
