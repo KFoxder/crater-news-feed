@@ -16,7 +16,7 @@ var ArticleView = require('./ArticleView');
 
 var FeedItem = React.createClass({
 
-	_onPressItem : function(href){
+	_onPressArticle : function(href){
 		console.log(href);
 		var nav = this.props.nav;
 		var element = this.props.elem;
@@ -27,30 +27,54 @@ var FeedItem = React.createClass({
       title = title.substring(0,30);
     }
 		nav.push({
-			navigationBar: <NavigationBar 
+			navigationBar: <NavigationBar
           						title={title}
-          						titleColor="#FFFFFF" 
+          						titleColor="#FFFFFF"
           						backgroundColor="#CBBCDF" />,
            component: ArticleView,
            url: href
 		});
 
-	  
+
 	},
+    _onPressComment : function(href){
+    console.log(href);
+    var nav = this.props.nav;
+    var element = this.props.elem;
+    var title = element.numComments.text;
+    if(title.length >30){
+      title = title.substring(0,30) + '...';
+    }else{
+      title = title.substring(0,30);
+    }
+    nav.push({
+      navigationBar: <NavigationBar
+                      title={title}
+                      titleColor="#FFFFFF"
+                      backgroundColor="#CBBCDF" />,
+           component: ArticleView,
+           url: href
+    });
+
+
+  },
 	render: function () {
 
 		var element = this.props.elem;
 			return (
-				<TouchableHighlight style={styles.touchContainer} onPress={this._onPressItem.bind(this,element.title.href)}>
+      <View>
 				  <View style={styles.container}>
+            <TouchableHighlight style={styles.touchContainer} onPress={this._onPressArticle.bind(this,element.title.href)}>
 				    <View style={styles.leftContainer}>
-				      <Text style={styles.title}>{element.title.text}</Text>
+				      <Text style={styles.title}>
+                {element.title.text}
+              </Text>
 				      <View style={styles.bottomContainer}>
 				          <Text style={styles.upvotes}>
 				            {element.upvotes.text}
 				          </Text>
 				          <Text style={styles.creator}>
-				            {element.creator.text} 
+				            {element.creator.text}
 				          </Text>
 				      </View>
 				       <View style={styles.bottomContainer}>
@@ -60,10 +84,12 @@ var FeedItem = React.createClass({
                       color={textColor}
                       style={styles.globe}/>
 			          <Text style={styles.orginalSite}>
-                  {element.orginalSite.text} 
+                  {element.orginalSite.text}
 			          </Text>
 				      </View>
 				    </View>
+            </TouchableHighlight>
+            <TouchableHighlight onPress={this._onPressComment.bind(this,element.numComments.href)}>
 				    <View style={styles.rightContainer}>
               <Icon
                       name='ion|ios-chatbubble-outline'
@@ -72,11 +98,12 @@ var FeedItem = React.createClass({
                       style={styles.commentBubble}/>
 				      <Text style={styles.comments}>{element.numComments.text}</Text>
 				    </View>
+            </TouchableHighlight>
 				  </View>
-				 </TouchableHighlight>
+        </View>
 			);
-		
-    
+
+
 	}
 });
 
@@ -98,7 +125,7 @@ var styles = StyleSheet.create({
   },
   touchContainer : {
   	flex: 1,
-    marginBottom: -15,
+    marginBottom: -5,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -119,9 +146,12 @@ var styles = StyleSheet.create({
     flex: 4,
   },
   rightContainer: {
+    height:100,
     flexDirection: 'row',
     alignItems: 'center',
     flex: 1,
+    paddingRight:20,
+
   },
   thumbnail: {
     width: 53,
@@ -136,35 +166,34 @@ var styles = StyleSheet.create({
   },
   comments: {
     flex: 1,
-    textAlign: 'left',
     backgroundColor: 'transparent',
     marginRight: 0,
-    color: textColor, 
+    color: textColor,
+
   },
   commentBubble: {
     flex: 1,
-    width: commentDiameter, 
-    height: commentDiameter, 
+    width: commentDiameter,
+    height: commentDiameter,
     backgroundColor: 'transparent',
     marginLeft: 15,
   },
   upvotes: {
-    flex: 1,  
-    textAlign: 'left',
+    flex: 1,
     fontSize: 12,
     marginLeft: 15,
     color: textColor,
     textAlign: 'center',
   },
   creator: {
-    flex: 9,  
+    flex: 9,
     textAlign: 'left',
     fontSize: 12,
     color: textColor,
 
   },
   orginalSite : {
-    flex: 9,  
+    flex: 9,
     textAlign: 'left',
     color: textColor,
     fontSize: 12,
@@ -173,8 +202,8 @@ var styles = StyleSheet.create({
   globe : {
     flex: 1,
     marginLeft: 15,
-    width: globeDiameter, 
-    height: globeDiameter, 
+    width: globeDiameter,
+    height: globeDiameter,
   }
 });
 module.exports = FeedItem;
