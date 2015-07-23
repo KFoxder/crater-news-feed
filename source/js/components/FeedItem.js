@@ -17,7 +17,6 @@ var ArticleView = require('./ArticleView');
 var FeedItem = React.createClass({
 
 	_onPressArticle : function(href){
-		console.log(href);
 		var nav = this.props.nav;
 		var element = this.props.elem;
     var title = element.title.text;
@@ -29,6 +28,7 @@ var FeedItem = React.createClass({
 		nav.push({
 			navigationBar: <NavigationBar
           						title={title}
+                      prevTitle = "<"
           						titleColor="#FFFFFF"
           						backgroundColor="#CBBCDF" />,
            component: ArticleView,
@@ -41,7 +41,7 @@ var FeedItem = React.createClass({
     console.log(href);
     var nav = this.props.nav;
     var element = this.props.elem;
-    var title = element.numComments.text;
+    var title = 'Comments : '+element.title.text;
     if(title.length >30){
       title = title.substring(0,30) + '...';
     }else{
