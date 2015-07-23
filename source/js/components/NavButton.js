@@ -13,7 +13,7 @@ var {
 var CustomNavButton = React.createClass({
 
   _onPress : function(){
-    
+
   },
   render :function() {
     return (

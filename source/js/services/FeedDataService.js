@@ -2,7 +2,6 @@
 var React = require('react-native');
 
 var {
-  
 } = React;
 
 var apiKey = 'kJVkitxBOpZeSt9wwkkc1u4pjDj6FID8';

@@ -11,7 +11,7 @@ var {
 
 var RefreshableListView = require('react-native-refreshable-listview');
 var FeedItem = require('./FeedItem');
-var FeedDataService = require('./FeedDataService');
+var FeedDataService = require('../services/FeedDataService');
 
 var CraterFeed = React.createClass({
   getInitialState: function() {
@@ -83,7 +83,6 @@ var styles = StyleSheet.create({
 
   },
   listView: {
-    paddingTop: 20,
     backgroundColor: '#F5FCFF',
   }
 

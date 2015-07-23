@@ -6,6 +6,7 @@ var {
   StyleSheet,
   WebView
 } = React;
+var HTMLView = require('react-native-htmlview');
 
 var HEADER = '#3b5998';
 var BGWASH = 'rgba(255,255,255,0.8)';
@@ -50,6 +51,7 @@ var ArticleView = React.createClass({
 var styles = StyleSheet.create({
   webView: {
     backgroundColor: BGWASH,
+    marginBottom: -55,
   },
   spinner: {
     width: 30,
